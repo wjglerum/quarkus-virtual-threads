@@ -1,5 +1,6 @@
 package nl.wjglerum;
 
+import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -9,6 +10,7 @@ import java.time.Duration;
 public class ReactiveBeerService {
 
     public Uni<Beer> getFromDraft() {
+        Log.info("Going to pour a reactive guinness");
         return Uni.createFrom().item(new Beer("Reactive Guinness"))
                 .onItem().delayIt().by(Duration.ofSeconds(5));
     }

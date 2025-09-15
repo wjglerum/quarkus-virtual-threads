@@ -10,7 +10,6 @@ import jakarta.ws.rs.core.MediaType;
 import nl.wjglerum.Beer;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
 
 @ApplicationScoped
@@ -24,13 +23,16 @@ public class StructuredBeerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RunOnVirtualThread
     @SuppressWarnings("preview")
-    public List<Beer> getBeers() throws InterruptedException, ExecutionException {
-        try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
+    public List<Beer> getBeers() throws InterruptedException {
+        try (var scope = StructuredTaskScope.open(
+                StructuredTaskScope.Joiner.awaitAllSuccessfulOrThrow(),
+                cf -> cf.withName("beer-scope")
+        )) {
             var beer1 = scope.fork(() -> structuredBeerService.getFromDraft());
             var beer2 = scope.fork(() -> structuredBeerService.getFromDraft());
             var beer3 = scope.fork(() -> structuredBeerService.getFromDraft());
 
-            scope.join().throwIfFailed();
+            scope.join();
 
             return List.of(beer1.get(), beer2.get(), beer3.get());
         }

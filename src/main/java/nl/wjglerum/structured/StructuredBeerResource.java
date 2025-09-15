@@ -24,10 +24,7 @@ public class StructuredBeerResource {
     @RunOnVirtualThread
     @SuppressWarnings("preview")
     public List<Beer> getBeers() throws InterruptedException {
-        try (var scope = StructuredTaskScope.open(
-                StructuredTaskScope.Joiner.awaitAllSuccessfulOrThrow(),
-                cf -> cf.withName("beer-scope")
-        )) {
+        try (var scope = StructuredTaskScope.open()) {
             var beer1 = scope.fork(() -> structuredBeerService.getFromDraft());
             var beer2 = scope.fork(() -> structuredBeerService.getFromDraft());
             var beer3 = scope.fork(() -> structuredBeerService.getFromDraft());

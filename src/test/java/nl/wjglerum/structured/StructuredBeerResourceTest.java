@@ -1,4 +1,4 @@
-package nl.wjglerum;
+package nl.wjglerum.structured;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;

@@ -1,23 +1,23 @@
-package nl.wjglerum;
+package nl.wjglerum.blocking;
 
-import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import nl.wjglerum.Beer;
 
-@Path("/beer/reactive")
+@Path("/beer/blocking")
 @ApplicationScoped
-public class ReactiveBeerResource {
+public class BlockingBeerResource {
 
     @Inject
-    ReactiveBeerService reactiveBeerService;
+    BlockingBeerService blockingBeerService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Beer> getBeer() {
-        return reactiveBeerService.getFromDraft();
+    public Beer getBeer() {
+        return blockingBeerService.getFromDraft();
     }
 }

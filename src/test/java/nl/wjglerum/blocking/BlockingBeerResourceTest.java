@@ -1,4 +1,4 @@
-package nl.wjglerum;
+package nl.wjglerum.blocking;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 
 @QuarkusTest
-@TestHTTPEndpoint(ReactiveBeerResource.class)
-class ReactiveBeerResourceTest {
+@TestHTTPEndpoint(BlockingBeerResource.class)
+class BlockingBeerResourceTest {
 
     @Test
     void testBeerEndpoint() {

@@ -1,4 +1,4 @@
-package nl.wjglerum;
+package nl.wjglerum.structured;
 
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -7,6 +7,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import nl.wjglerum.Beer;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;

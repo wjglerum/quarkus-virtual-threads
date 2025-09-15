@@ -1,22 +1,25 @@
-package nl.wjglerum;
+package nl.wjglerum.virtual;
 
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import nl.wjglerum.Beer;
 
-@Path("/beer/blocking")
 @ApplicationScoped
-public class BlockingBeerResource {
+@Path("/beer/virtual")
+public class VirtualBeerResource {
 
     @Inject
-    BlockingBeerService blockingBeerService;
+    VirtualBeerService virtualBeerService;
 
     @GET
+    @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
     public Beer getBeer() {
-        return blockingBeerService.getFromDraft();
+        return virtualBeerService.getFromDraft();
     }
 }

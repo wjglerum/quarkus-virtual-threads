@@ -1,24 +1,24 @@
-package nl.wjglerum;
+package nl.wjglerum.reactive;
 
-import io.smallrye.common.annotation.RunOnVirtualThread;
+import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import nl.wjglerum.Beer;
 
+@Path("/beer/reactive")
 @ApplicationScoped
-@Path("/beer/virtual")
-public class VirtualBeerResource {
+public class ReactiveBeerResource {
 
     @Inject
-    VirtualBeerService virtualBeerService;
+    ReactiveBeerService reactiveBeerService;
 
     @GET
-    @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
-    public Beer getBeer() {
-        return virtualBeerService.getFromDraft();
+    public Uni<Beer> getBeer() {
+        return reactiveBeerService.getFromDraft();
     }
 }

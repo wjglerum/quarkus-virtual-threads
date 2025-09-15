@@ -1,7 +1,8 @@
-package nl.wjglerum;
+package nl.wjglerum.structured;
 
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import nl.wjglerum.Beer;
 
 @ApplicationScoped
 public class StructuredBeerService {

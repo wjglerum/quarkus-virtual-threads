@@ -7,13 +7,13 @@ import nl.wjglerum.Beer;
 @ApplicationScoped
 public class StructuredBeerService {
 
-    public Beer getFromDraft() {
+    public Beer getFromDraft(String name) {
         Log.info("Going to pour a structured guinness");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new Beer("Structured Guinness");
+        return new Beer("Structured Guinness for " + name);
     }
 }

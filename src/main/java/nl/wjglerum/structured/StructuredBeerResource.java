@@ -11,6 +11,7 @@ import nl.wjglerum.Beer;
 
 import java.util.List;
 import java.util.concurrent.StructuredTaskScope;
+import java.util.stream.Stream;
 
 @ApplicationScoped
 @Path("/beer/structured")
@@ -23,15 +24,12 @@ public class StructuredBeerResource {
     @Produces(MediaType.APPLICATION_JSON)
     @RunOnVirtualThread
     @SuppressWarnings("preview")
-    public List<Beer> getBeers() throws InterruptedException {
-        try (var scope = StructuredTaskScope.open()) {
-            var beer1 = scope.fork(() -> structuredBeerService.getFromDraft());
-            var beer2 = scope.fork(() -> structuredBeerService.getFromDraft());
-            var beer3 = scope.fork(() -> structuredBeerService.getFromDraft());
-
-            scope.join();
-
-            return List.of(beer1.get(), beer2.get(), beer3.get());
+    public List<Beer> getMultipleBeers() throws InterruptedException {
+        var joiner = StructuredTaskScope.Joiner.<Beer>allSuccessfulOrThrow();
+        var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beers-", 0).factory();
+        try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
+            Stream.of("alice", "bob", "chuck").forEach(name -> scope.fork(() -> structuredBeerService.getFromDraft(name)));
+            return scope.join().map(StructuredTaskScope.Subtask::get).toList();
         }
     }
 }

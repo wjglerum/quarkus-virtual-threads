@@ -2,18 +2,18 @@ package nl.wjglerum.virtual;
 
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import nl.wjglerum.Beer;
+import nl.wjglerum.Beverage;
 
 @ApplicationScoped
 public class VirtualBartender {
 
-    public Beer getFromDraft() {
+    public Beverage getFromDraft() {
         Log.info("Going to pour a virtual guinness");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new Beer("Virtual Guinness");
+        return new Beverage("Virtual Guinness");
     }
 }

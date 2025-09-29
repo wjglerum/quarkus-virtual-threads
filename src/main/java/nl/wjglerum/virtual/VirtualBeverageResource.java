@@ -7,11 +7,11 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import nl.wjglerum.Beer;
+import nl.wjglerum.Beverage;
 
 @ApplicationScoped
-@Path("/beer/virtual")
-public class VirtualBeerResource {
+@Path("/beverage/virtual")
+public class VirtualBeverageResource {
 
     @Inject
     VirtualBartender virtualBarTender;
@@ -19,7 +19,7 @@ public class VirtualBeerResource {
     @GET
     @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
-    public Beer getBeer() {
+    public Beverage getBeverage() {
         return virtualBarTender.getFromDraft();
     }
 }

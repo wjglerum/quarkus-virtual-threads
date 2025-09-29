@@ -13,8 +13,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 @VirtualThreadUnit
-@TestHTTPEndpoint(StructuredBeerResource.class)
-class StructuredBeerResourceTest {
+@TestHTTPEndpoint(StructuredBeverageResource.class)
+class StructuredBeverageResourceTest {
 
     @Test
     @ShouldNotPin

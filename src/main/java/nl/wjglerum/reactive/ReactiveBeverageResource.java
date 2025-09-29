@@ -7,18 +7,18 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import nl.wjglerum.Beer;
+import nl.wjglerum.Beverage;
 
-@Path("/beer/reactive")
+@Path("/beverage/reactive")
 @ApplicationScoped
-public class ReactiveBeerResource {
+public class ReactiveBeverageResource {
 
     @Inject
     ReactiveBartender reactiveBarTender;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Beer> getBeer() {
+    public Uni<Beverage> getBeverage() {
         return reactiveBarTender.getFromDraft();
     }
 }

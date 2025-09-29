@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 public class StructuredBeerResource {
 
     @Inject
-    StructuredBeerService structuredBeerService;
+    StructuredBartender structuredBarTender;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -28,7 +28,7 @@ public class StructuredBeerResource {
         var joiner = StructuredTaskScope.Joiner.<Beer>allSuccessfulOrThrow();
         var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beers-", 0).factory();
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
-            Stream.of("alice", "bob", "chuck").forEach(name -> scope.fork(() -> structuredBeerService.getFromDraft(name)));
+            Stream.of("alice", "bob", "chuck").forEach(name -> scope.fork(() -> structuredBarTender.getFromDraft(name)));
             return scope.join().map(StructuredTaskScope.Subtask::get).toList();
         }
     }

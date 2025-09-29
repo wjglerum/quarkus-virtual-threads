@@ -5,7 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import nl.wjglerum.Beer;
 
 @ApplicationScoped
-public class StructuredBeerService {
+public class StructuredBartender {
 
     public Beer getFromDraft(String name) {
         Log.info("Going to pour a structured guinness");

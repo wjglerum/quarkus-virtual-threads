@@ -13,11 +13,11 @@ import nl.wjglerum.Beer;
 public class BlockingBeerResource {
 
     @Inject
-    BlockingBeerService blockingBeerService;
+    BlockingBartender blockingBarTender;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Beer getBeer() {
-        return blockingBeerService.getFromDraft();
+        return blockingBarTender.getFromDraft();
     }
 }

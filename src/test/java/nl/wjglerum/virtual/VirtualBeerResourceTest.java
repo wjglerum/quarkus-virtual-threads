@@ -21,6 +21,6 @@ class VirtualBeerResourceTest {
                 .when().get()
                 .then()
                 .statusCode(200)
-                .body(containsString("Guinness"));
+                .body(containsString("Virtual Guinness"));
     }
 }

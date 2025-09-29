@@ -14,11 +14,11 @@ import nl.wjglerum.Beer;
 public class ReactiveBeerResource {
 
     @Inject
-    ReactiveBeerService reactiveBeerService;
+    ReactiveBartender reactiveBarTender;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<Beer> getBeer() {
-        return reactiveBeerService.getFromDraft();
+        return reactiveBarTender.getFromDraft();
     }
 }

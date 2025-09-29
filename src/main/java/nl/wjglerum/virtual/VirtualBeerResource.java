@@ -14,12 +14,12 @@ import nl.wjglerum.Beer;
 public class VirtualBeerResource {
 
     @Inject
-    VirtualBeerService virtualBeerService;
+    VirtualBartender virtualBarTender;
 
     @GET
     @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
     public Beer getBeer() {
-        return virtualBeerService.getFromDraft();
+        return virtualBarTender.getFromDraft();
     }
 }

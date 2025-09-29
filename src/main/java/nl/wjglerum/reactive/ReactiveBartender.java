@@ -8,11 +8,14 @@ import nl.wjglerum.Beer;
 import java.time.Duration;
 
 @ApplicationScoped
-public class ReactiveBeerService {
+public class ReactiveBartender {
 
     public Uni<Beer> getFromDraft() {
         Log.info("Going to pour a reactive guinness");
-        return Uni.createFrom().item(new Beer("Reactive Guinness"))
-                .onItem().delayIt().by(Duration.ofSeconds(5));
+        return Uni.createFrom()
+                .item(new Beer("Reactive Guinness"))
+                .onItem()
+                .delayIt()
+                .by(Duration.ofSeconds(5));
     }
 }

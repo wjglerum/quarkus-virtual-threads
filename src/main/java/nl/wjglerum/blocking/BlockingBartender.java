@@ -5,7 +5,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import nl.wjglerum.Beer;
 
 @ApplicationScoped
-public class BlockingBeerService {
+public class BlockingBartender {
 
     public Beer getFromDraft() {
         Log.info("Going to pour a blocking guinness");

@@ -21,6 +21,21 @@ public class StructuredBeverageResource {
     StructuredBartender structuredBarTender;
 
     @GET
+    @Path("/simple")
+    @Produces(MediaType.APPLICATION_JSON)
+    @RunOnVirtualThread
+    @SuppressWarnings("preview")
+    public List<Beverage> getBeveragesSimple() throws InterruptedException {
+        try (var scope = StructuredTaskScope.open()) {
+            var beer1 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
+            var beer2 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
+            var beer3 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
+            scope.join();
+            return List.of(beer1.get(), beer2.get(), beer3.get());
+        }
+    }
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @RunOnVirtualThread
     @SuppressWarnings("preview")

@@ -28,8 +28,8 @@ public class StructuredBeverageResource {
     public List<Beverage> getBeveragesSimple() throws InterruptedException {
         try (var scope = StructuredTaskScope.open()) {
             var beer1 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
-            var beer2 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
-            var beer3 = scope.fork(() -> structuredBarTender.getFromDraft("alice"));
+            var beer2 = scope.fork(() -> structuredBarTender.getFromDraft("bob"));
+            var beer3 = scope.fork(() -> structuredBarTender.getFromDraft("chuck"));
             scope.join();
             return List.of(beer1.get(), beer2.get(), beer3.get());
         }
@@ -44,7 +44,8 @@ public class StructuredBeverageResource {
         var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beverage-", 0).factory();
 
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
-            Stream.of("alice", "bob", "chuck").forEach(name -> scope.fork(() -> structuredBarTender.getFromDraft(name)));
+            Stream.of("alice", "bob", "chuck")
+                    .forEach(name -> scope.fork(() -> structuredBarTender.getFromDraft(name)));
             return scope.join().map(StructuredTaskScope.Subtask::get).toList();
         }
     }

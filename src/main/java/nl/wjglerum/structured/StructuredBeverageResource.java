@@ -11,7 +11,6 @@ import nl.wjglerum.Beverage;
 
 import java.util.List;
 import java.util.concurrent.StructuredTaskScope;
-import java.util.stream.Stream;
 
 @ApplicationScoped
 @Path("/beverage/structured")
@@ -42,10 +41,10 @@ public class StructuredBeverageResource {
     public List<Beverage> getBeverages() throws InterruptedException {
         var joiner = StructuredTaskScope.Joiner.<Beverage>allSuccessfulOrThrow();
         var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beverage-", 0).factory();
+        var friends = List.of("alice", "bob", "chuck");
 
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
-            Stream.of("alice", "bob", "chuck")
-                    .forEach(name -> scope.fork(() -> structuredBarTender.getFromDraft(name)));
+            friends.forEach(name -> scope.fork(() -> structuredBarTender.getFromDraft(name)));
             return scope.join().map(StructuredTaskScope.Subtask::get).toList();
         }
     }

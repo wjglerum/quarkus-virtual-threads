@@ -1,0 +1,14 @@
+### GET Blocking
+GET http://localhost:8080/beverage/blocking
+
+### GET Reactive
+GET http://localhost:8080/beverage/reactive
+
+### GET Virtual
+GET http://localhost:8080/beverage/virtual
+
+### GET Structured simple
+GET http://localhost:8080/beverage/structured/simple
+
+### GET Structured custom
+GET http://localhost:8080/beverage/structured/custom

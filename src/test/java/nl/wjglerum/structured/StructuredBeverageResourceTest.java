@@ -18,11 +18,25 @@ class StructuredBeverageResourceTest {
 
     @Test
     @ShouldNotPin
-    void testBeerEndpoint() {
+    void testSimpleEndpoint() {
         given()
                 .accept(ContentType.JSON)
                 .when()
-                .get()
+                .get("/simple")
+                .then()
+                .statusCode(200)
+                .contentType(ContentType.JSON)
+                .body("size()", equalTo(3))
+                .body(containsString("Structured Guinness"));
+    }
+
+    @Test
+    @ShouldNotPin
+    void testCustomEndpoint() {
+        given()
+                .accept(ContentType.JSON)
+                .when()
+                .get("/custom")
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)

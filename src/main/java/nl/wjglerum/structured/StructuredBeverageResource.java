@@ -35,6 +35,7 @@ public class StructuredBeverageResource {
     }
 
     @GET
+    @Path("/custom")
     @Produces(MediaType.APPLICATION_JSON)
     @RunOnVirtualThread
     @SuppressWarnings("preview")

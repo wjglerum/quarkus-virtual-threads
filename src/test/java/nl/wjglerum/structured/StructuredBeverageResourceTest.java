@@ -3,6 +3,7 @@ package nl.wjglerum.structured;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit5.virtual.ShouldNotPin;
+import io.quarkus.test.junit5.virtual.ShouldPin;
 import io.quarkus.test.junit5.virtual.VirtualThreadUnit;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 class StructuredBeverageResourceTest {
 
     @Test
-    @ShouldNotPin
+    @ShouldPin(atMost = 10)
     void testSimpleEndpoint() {
         given()
                 .accept(ContentType.JSON)

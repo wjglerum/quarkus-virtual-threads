@@ -2,18 +2,17 @@ package nl.wjglerum.structured;
 
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import nl.wjglerum.Beverage;
 
 @ApplicationScoped
 public class StructuredBartender {
 
-    public Beverage getFromDraft(String name) {
-        Log.info("Going to pour a structured guinness");
+    public StructuredBeverage getFromDraft(String name) {
+        Log.info("Going to pour a structured guinness for " + name);
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new Beverage("Structured Guinness for " + name);
+        return new StructuredBeverage("Structured Guinness for " + name);
     }
 }

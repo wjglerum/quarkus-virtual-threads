@@ -10,7 +10,7 @@ public class StructuredBartender {
     public Beverage getFromDraft(String name) {
         Log.info("Going to pour a structured guinness");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

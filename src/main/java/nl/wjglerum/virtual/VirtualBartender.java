@@ -9,7 +9,7 @@ public class VirtualBartender {
     public VirtualBeverage getFromDraft() {
         Log.info("Going to pour a virtual guinness");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

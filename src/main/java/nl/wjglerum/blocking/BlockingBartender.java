@@ -9,7 +9,7 @@ public class BlockingBartender {
     public BlockingBeverage getFromDraft() {
         Log.info("Going to pour a blocking guinness");
         try {
-            Thread.sleep(5_000);
+            Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

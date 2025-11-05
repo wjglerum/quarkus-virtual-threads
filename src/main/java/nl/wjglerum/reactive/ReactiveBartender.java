@@ -15,6 +15,6 @@ public class ReactiveBartender {
                 .item(new ReactiveBeverage("Reactive Guinness"))
                 .onItem()
                 .delayIt()
-                .by(Duration.ofSeconds(5));
+                .by(Duration.ofSeconds(3));
     }
 }

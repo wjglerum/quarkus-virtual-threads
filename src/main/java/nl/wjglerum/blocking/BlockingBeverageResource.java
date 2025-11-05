@@ -23,7 +23,7 @@ public class BlockingBeverageResource {
     @Produces(MediaType.APPLICATION_JSON)
     public BlockingBeverage getBeverage() {
         var beverage = bartender.getFromDraft();
-        repository.persist(beverage);
+        repository.save(beverage);
         return beverage;
     }
 }

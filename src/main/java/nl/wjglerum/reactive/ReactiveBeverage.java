@@ -8,7 +8,6 @@ public class ReactiveBeverage extends PanacheEntity {
 
     public String name;
 
-
     public ReactiveBeverage() {
     }
 

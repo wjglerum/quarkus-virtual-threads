@@ -25,7 +25,7 @@ public class VirtualBeverageResource {
     @Produces(MediaType.APPLICATION_JSON)
     public VirtualBeverage getBeverage() {
         var beverage =  bartender.getFromDraft();
-        repository.persist(beverage);
+        repository.save(beverage);
         return beverage;
     }
 }

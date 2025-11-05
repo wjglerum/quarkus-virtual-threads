@@ -23,6 +23,6 @@ public class ReactiveBeverageResource {
     @WithTransaction
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<ReactiveBeverage> getBeverage() {
-        return bartender.getFromDraft().onItem().transformToUni(beverage -> repository.persist(beverage));
+        return bartender.getFromDraft().onItem().transformToUni(beverage -> repository.save(beverage));
     }
 }

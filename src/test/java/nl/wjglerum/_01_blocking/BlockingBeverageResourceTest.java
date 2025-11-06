@@ -12,7 +12,7 @@ import static org.hamcrest.CoreMatchers.containsString;
 class BlockingBeverageResourceTest {
 
     @Test
-    void testBeerEndpoint() {
+    void testBlockingEndpoint() {
         given()
                 .when().get()
                 .then()

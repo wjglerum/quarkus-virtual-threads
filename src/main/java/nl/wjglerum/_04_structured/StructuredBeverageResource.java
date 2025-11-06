@@ -30,13 +30,13 @@ public class StructuredBeverageResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<StructuredBeverage> getBeveragesSimple() throws InterruptedException {
         try (var scope = StructuredTaskScope.open()) {
-            var beer1 = scope.fork(() -> bartender.getFromDraft("alice"));
-            var beer2 = scope.fork(() -> bartender.getFromDraft("bob"));
-            var beer3 = scope.fork(() -> bartender.getFromDraft("chuck"));
+            var alice = scope.fork(() -> bartender.getFromDraft("Alice"));
+            var bob = scope.fork(() -> bartender.getFromDraft("Bob"));
+            var chuck = scope.fork(() -> bartender.getFromDraft("Chuck"));
             scope.join();
-            var beers = List.of(beer1.get(), beer2.get(), beer3.get());
-            repository.save(beers);
-            return beers;
+            var beverages = List.of(alice.get(), bob.get(), chuck.get());
+            repository.save(beverages);
+            return beverages;
         }
     }
 
@@ -49,13 +49,13 @@ public class StructuredBeverageResource {
     public List<StructuredBeverage> getBeverages() throws InterruptedException {
         var joiner = StructuredTaskScope.Joiner.<StructuredBeverage>allSuccessfulOrThrow();
         var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beverage-", 0).factory();
-        var friends = List.of("alice", "bob", "chuck");
+        var friends = List.of("Alice", "Bob", "Chuck");
 
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
             friends.forEach(name -> scope.fork(() -> bartender.getFromDraft(name)));
-            var beers = scope.join().map(StructuredTaskScope.Subtask::get).toList();
-            repository.save(beers);
-            return beers;
+            var beverages = scope.join().map(StructuredTaskScope.Subtask::get).toList();
+            repository.save(beverages);
+            return beverages;
         }
     }
 }

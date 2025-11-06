@@ -16,7 +16,7 @@ class VirtualBeverageResourceTest {
 
     @Test
     @ShouldNotPin
-    void testBeerEndpoint() {
+    void testVirtualEndpoint() {
         given()
                 .when().get()
                 .then()

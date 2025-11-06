@@ -1,6 +1,5 @@
-package nl.wjglerum.virtual;
+package nl.wjglerum._01_blocking;
 
-import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -9,22 +8,21 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
+@Path("/beverage/blocking")
 @ApplicationScoped
-@Path("/beverage/virtual")
-public class VirtualBeverageResource {
+public class BlockingBeverageResource {
 
     @Inject
-    VirtualBartender bartender;
+    BlockingBartender bartender;
 
     @Inject
-    VirtualBeverageRepository repository;
+    BlockingBeverageRepository repository;
 
     @GET
     @Transactional
-    @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
-    public VirtualBeverage getBeverage() {
-        var beverage =  bartender.getFromDraft();
+    public BlockingBeverage getBeverage() {
+        var beverage = bartender.getFromDraft();
         repository.save(beverage);
         return beverage;
     }

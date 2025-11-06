@@ -1,18 +1,18 @@
-package nl.wjglerum.blocking;
+package nl.wjglerum._03_virtual;
 
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class BlockingBartender {
+public class VirtualBartender {
 
-    public BlockingBeverage getFromDraft() {
-        Log.info("Going to pour a blocking guinness");
+    public VirtualBeverage getFromDraft() {
+        Log.info("Going to pour a virtual guinness");
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new BlockingBeverage("Blocking Guinness");
+        return new VirtualBeverage("Virtual Guinness");
     }
 }

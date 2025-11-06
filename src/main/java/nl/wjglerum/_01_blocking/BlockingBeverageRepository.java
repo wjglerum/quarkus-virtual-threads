@@ -1,4 +1,4 @@
-package nl.wjglerum.blocking;
+package nl.wjglerum._01_blocking;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.logging.Log;

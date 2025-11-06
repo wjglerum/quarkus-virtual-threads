@@ -1,4 +1,4 @@
-package nl.wjglerum.blocking;
+package nl.wjglerum._02_reactive;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
 
 @QuarkusTest
-@TestHTTPEndpoint(BlockingBeverageResource.class)
-class BlockingBeverageResourceTest {
+@TestHTTPEndpoint(ReactiveBeverageResource.class)
+class ReactiveBeverageResourceTest {
 
     @Test
     void testBeerEndpoint() {
@@ -17,6 +17,6 @@ class BlockingBeverageResourceTest {
                 .when().get()
                 .then()
                 .statusCode(200)
-                .body(containsString("Blocking Guinness"));
+                .body(containsString("Reactive Guinness"));
     }
 }

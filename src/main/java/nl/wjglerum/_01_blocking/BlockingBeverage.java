@@ -1,17 +1,17 @@
-package nl.wjglerum.virtual;
+package nl.wjglerum._01_blocking;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
 @Entity
-public class VirtualBeverage extends PanacheEntity {
+public class BlockingBeverage extends PanacheEntity {
 
     public String name;
 
-    public VirtualBeverage() {
+    public BlockingBeverage() {
     }
 
-    public VirtualBeverage(String name) {
+    public BlockingBeverage(String name) {
         this.name = name;
     }
 }

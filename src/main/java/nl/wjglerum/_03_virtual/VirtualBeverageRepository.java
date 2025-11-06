@@ -1,4 +1,4 @@
-package nl.wjglerum.virtual;
+package nl.wjglerum._03_virtual;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.logging.Log;

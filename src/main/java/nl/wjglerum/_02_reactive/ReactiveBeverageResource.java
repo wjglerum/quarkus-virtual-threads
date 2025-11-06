@@ -1,4 +1,4 @@
-package nl.wjglerum.reactive;
+package nl.wjglerum._02_reactive;
 
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.smallrye.mutiny.Uni;

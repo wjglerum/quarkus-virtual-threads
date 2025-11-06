@@ -1,4 +1,4 @@
-package nl.wjglerum.structured;
+package nl.wjglerum._04_structured;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.logging.Log;

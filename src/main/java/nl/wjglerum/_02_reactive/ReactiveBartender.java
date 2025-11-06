@@ -10,7 +10,7 @@ import java.time.Duration;
 public class ReactiveBartender {
 
     public Uni<ReactiveBeverage> getFromDraft() {
-        Log.info("Going to pour a reactive guinness");
+        Log.info("Going to pour a reactive Guinness");
         return Uni.createFrom()
                 .item(new ReactiveBeverage("Reactive Guinness"))
                 .onItem()

@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class StructuredBartender {
 
     public StructuredBeverage getFromDraft(String name) {
-        Log.info("Going to pour a structured guinness for " + name);
+        Log.info("Going to pour a structured Guinness for " + name);
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {

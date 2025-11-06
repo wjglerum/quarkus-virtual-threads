@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class BlockingBartender {
 
     public BlockingBeverage getFromDraft() {
-        Log.info("Going to pour a blocking guinness");
+        Log.info("Going to pour a blocking Guinness");
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {

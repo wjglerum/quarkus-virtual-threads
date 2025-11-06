@@ -7,7 +7,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class VirtualBartender {
 
     public VirtualBeverage getFromDraft() {
-        Log.info("Going to pour a virtual guinness");
+        Log.info("Going to pour a virtual Guinness");
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {

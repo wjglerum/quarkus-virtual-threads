@@ -5,11 +5,18 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.util.List;
+
 @ApplicationScoped
 public class ReactiveBeverageRepository implements PanacheRepository<ReactiveBeverage> {
 
-    Uni<ReactiveBeverage> save(ReactiveBeverage beverage) {
+    Uni<Void> save(ReactiveBeverage beverage) {
         Log.info("Persisting reactive beverage");
-        return persist(beverage);
+        return persist(beverage).replaceWithVoid();
+    }
+
+    Uni<Void> save(List<ReactiveBeverage> beverages) {
+        Log.info("Persisting reactive beverages");
+        return persist(beverages);
     }
 }

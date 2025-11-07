@@ -6,17 +6,30 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @TestHTTPEndpoint(BlockingBeverageResource.class)
 class BlockingBeverageResourceTest {
 
     @Test
-    void testBlockingEndpoint() {
+    void testBlockingSimpleEndpoint() {
         given()
-                .when().get()
+                .when()
+                .get("/simple")
                 .then()
                 .statusCode(200)
+                .body(containsString("Blocking Guinness"));
+    }
+
+    @Test
+    void testBlockingMultipleEndpoint() {
+        given()
+                .when()
+                .get("/multiple")
+                .then()
+                .statusCode(200)
+                .body("size()", is(3))
                 .body(containsString("Blocking Guinness"));
     }
 }

@@ -2,6 +2,8 @@ package nl.wjglerum._03_virtual;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit5.virtual.ShouldNotPin;
+import io.quarkus.test.junit5.virtual.VirtualThreadUnit;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,8 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
+@ShouldNotPin
+@VirtualThreadUnit
 @TestHTTPEndpoint(VirtualBeverageResource.class)
 class VirtualBeverageResourceTest {
 
@@ -26,7 +30,7 @@ class VirtualBeverageResourceTest {
     }
 
     @Test
-    void testVirtualSequenetialEndpoint() {
+    void testVirtualSequentialEndpoint() {
         given()
                 .when()
                 .get("/sequential")

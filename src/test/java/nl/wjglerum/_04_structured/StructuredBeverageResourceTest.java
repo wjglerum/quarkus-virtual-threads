@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
+@ShouldNotPin(atMost = 5)
 @VirtualThreadUnit
 @TestHTTPEndpoint(StructuredBeverageResource.class)
 class StructuredBeverageResourceTest {
@@ -29,7 +30,6 @@ class StructuredBeverageResourceTest {
     }
 
     @Test
-    @ShouldNotPin
     void testStructuredCustomEndpoint() {
         given()
                 .when()

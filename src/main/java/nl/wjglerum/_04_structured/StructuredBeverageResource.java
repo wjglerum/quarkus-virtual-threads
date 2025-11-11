@@ -1,5 +1,6 @@
 package nl.wjglerum._04_structured;
 
+import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -26,12 +27,13 @@ public class StructuredBeverageResource {
     @RunOnVirtualThread
     @SuppressWarnings("preview")
     public List<StructuredBeverage> getBeveragesSimple() throws InterruptedException {
+        Log.info("Going to get structured beverages simple");
         try (var scope = StructuredTaskScope.open()) {
-            var alice = scope.fork(() -> bartender.get("Alice"));
-            var bob = scope.fork(() -> bartender.get("Bob"));
-            var chuck = scope.fork(() -> bartender.get("Chuck"));
+            var beverage1 = scope.fork(() -> bartender.get());
+            var beverage2 = scope.fork(() -> bartender.get());
+            var beverage3 = scope.fork(() -> bartender.get());
             scope.join();
-            var beverages = List.of(alice.get(), bob.get(), chuck.get());
+            var beverages = List.of(beverage1.get(), beverage2.get(), beverage3.get());
             repository.save(beverages);
             return beverages;
         }
@@ -42,13 +44,17 @@ public class StructuredBeverageResource {
     @Transactional
     @RunOnVirtualThread
     @SuppressWarnings("preview")
-    public List<StructuredBeverage> getBeverages() throws InterruptedException {
+    public List<StructuredBeverage> getBeveragesCustom() throws InterruptedException {
+        Log.info("Going to get structured beverages custom");
         var joiner = StructuredTaskScope.Joiner.<StructuredBeverage>allSuccessfulOrThrow();
-        var tf = Thread.ofVirtual().name(Thread.currentThread().getName() + "-beverage-", 0).factory();
-        var friends = List.of("Alice", "Bob", "Chuck");
-
-        try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
-            friends.forEach(name -> scope.fork(() -> bartender.get(name)));
+        var currentThread = Thread.currentThread();
+        var threadFactory = Thread.ofVirtual()
+                .name(currentThread.getName() + "-beverage-", 0)
+                .factory();
+        try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(threadFactory))) {
+            scope.fork(bartender::get);
+            scope.fork(bartender::get);
+            scope.fork(bartender::get);
             var beverages = scope.join().map(StructuredTaskScope.Subtask::get).toList();
             repository.save(beverages);
             return beverages;

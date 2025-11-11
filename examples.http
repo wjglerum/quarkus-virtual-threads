@@ -25,8 +25,11 @@ GET http://localhost:8080/beverage/virtual/sequential
 ### GET Virtual Parallel
 GET http://localhost:8080/beverage/virtual/parallel
 
-### GET Structured simple
+### GET Virtual Custom
+GET http://localhost:8080/beverage/virtual/custom
+
+### GET Structured Simple
 GET http://localhost:8080/beverage/structured/simple
 
-### GET Structured custom
+### GET Structured Custom
 GET http://localhost:8080/beverage/structured/custom

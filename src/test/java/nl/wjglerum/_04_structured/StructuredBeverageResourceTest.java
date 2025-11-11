@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.equalTo;
 class StructuredBeverageResourceTest {
 
     @Test
-    void testSimpleEndpoint() {
+    void testStructuredSimpleEndpoint() {
         given()
                 .when()
                 .get("/simple")
@@ -30,7 +30,7 @@ class StructuredBeverageResourceTest {
 
     @Test
     @ShouldNotPin
-    void testCustomEndpoint() {
+    void testStructuredCustomEndpoint() {
         given()
                 .when()
                 .get("/custom")

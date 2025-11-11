@@ -26,6 +26,7 @@ public class VirtualBeverageResource {
     @Transactional
     @RunOnVirtualThread
     public VirtualBeverage getBeverage() {
+        Log.info("Going to get virtual beverage");
         var beverage =  bartender.get();
         repository.save(beverage);
         return beverage;
@@ -51,6 +52,24 @@ public class VirtualBeverageResource {
     @RunOnVirtualThread
     public List<VirtualBeverage> getBeveragesParallel() {
         Log.info("Going to get virtual beverages parallel");
+        try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            var beverage1 = executor.submit(bartender::get);
+            var beverage2 = executor.submit(bartender::get);
+            var beverage3 = executor.submit(bartender::get);
+            var beverages = List.of(beverage1.get(), beverage2.get(), beverage3.get());
+            repository.save(beverages);
+            return beverages;
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GET
+    @Path("/custom")
+    @Transactional
+    @RunOnVirtualThread
+    public List<VirtualBeverage> getBeveragesCustom() {
+        Log.info("Going to get virtual beverages custom");
         var currentThread = Thread.currentThread();
         var threadFactory = Thread.ofVirtual()
                 .name(currentThread.getName() + "-virtual-beverage-", 0)

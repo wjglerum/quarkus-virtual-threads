@@ -48,4 +48,16 @@ class VirtualBeverageResourceTest {
                 .body("size()", is(3))
                 .body(containsString("Virtual coffee"));
     }
+
+    @Test
+    void testVirtualCustomEndpoint() {
+        given()
+                .when()
+                .get("/custom")
+                .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("size()", is(3))
+                .body(containsString("Virtual coffee"));
+    }
 }

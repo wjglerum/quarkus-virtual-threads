@@ -36,7 +36,7 @@ public class BlockingBeverageResource {
     @Path("/sequential")
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
-    public List<BlockingBeverage> getSequentialBeverages() {
+    public List<BlockingBeverage> getBeveragesSequential() {
         var beverage1 = bartender.get();
         var beverage2 = bartender.get();
         var beverage3 = bartender.get();
@@ -49,7 +49,7 @@ public class BlockingBeverageResource {
     @Path("/parallel")
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
-    public List<BlockingBeverage> getParallelBeverages() {
+    public List<BlockingBeverage> getBeveragesParallel() {
         try (ExecutorService executor = Executors.newWorkStealingPool()) {
             var beverage1 = executor.submit(bartender::get);
             var beverage2 = executor.submit(bartender::get);

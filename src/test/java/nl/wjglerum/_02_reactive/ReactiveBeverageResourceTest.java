@@ -13,20 +13,31 @@ import static org.hamcrest.CoreMatchers.is;
 class ReactiveBeverageResourceTest {
 
     @Test
-    void testReactiveSimpleEndpoint() {
+    void testReactiveEndpoint() {
         given()
                 .when()
-                .get("/simple")
+                .get()
                 .then()
                 .statusCode(200)
                 .body(containsString("Reactive coffee"));
     }
 
     @Test
-    void testReactiveMultipleEndpoint() {
+    void testReactiveSequentialEndpoint() {
         given()
                 .when()
-                .get("/multiple")
+                .get("/sequential")
+                .then()
+                .statusCode(200)
+                .body("size()", is(3))
+                .body(containsString("Reactive coffee"));
+    }
+
+    @Test
+    void testReactiveParallelEndpoint() {
+        given()
+                .when()
+                .get("/parallel")
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))

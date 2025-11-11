@@ -10,8 +10,11 @@ GET http://localhost:8080/beverage/blocking/parallel
 ### GET Reactive Single
 GET http://localhost:8080/beverage/reactive/simple
 
-### GET Reactive Multiple
-GET http://localhost:8080/beverage/reactive/multiple
+### GET Reactive Sequential
+GET http://localhost:8080/beverage/reactive/sequential
+
+### GET Reactive Parallel
+GET http://localhost:8080/beverage/reactive/parallel
 
 ### GET Virtual Single
 GET http://localhost:8080/beverage/virtual/simple

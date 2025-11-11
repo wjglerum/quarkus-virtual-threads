@@ -1,8 +1,11 @@
 ### GET Blocking Simple
 GET http://localhost:8080/beverage/blocking/simple
 
-### GET Blocking Multiple
-GET http://localhost:8080/beverage/blocking/multiple
+### GET Blocking Sequential
+GET http://localhost:8080/beverage/blocking/sequential
+
+### GET Blocking Parallel
+GET http://localhost:8080/beverage/blocking/parallel
 
 ### GET Reactive Single
 GET http://localhost:8080/beverage/reactive/simple

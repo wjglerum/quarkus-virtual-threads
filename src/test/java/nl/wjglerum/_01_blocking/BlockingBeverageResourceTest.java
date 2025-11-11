@@ -13,20 +13,31 @@ import static org.hamcrest.CoreMatchers.is;
 class BlockingBeverageResourceTest {
 
     @Test
-    void testBlockingSimpleEndpoint() {
+    void testBlockingEndpoint() {
         given()
                 .when()
-                .get("/simple")
+                .get()
                 .then()
                 .statusCode(200)
                 .body(containsString("Blocking coffee"));
     }
 
     @Test
-    void testBlockingMultipleEndpoint() {
+    void testBlockingSequentialEndpoint() {
         given()
                 .when()
-                .get("/multiple")
+                .get("/sequential")
+                .then()
+                .statusCode(200)
+                .body("size()", is(3))
+                .body(containsString("Blocking coffee"));
+    }
+
+    @Test
+    void testBlockingParallelEndpoint() {
+        given()
+                .when()
+                .get("/parallel")
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))

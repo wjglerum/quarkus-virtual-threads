@@ -5,13 +5,13 @@ GET http://localhost:8080/beverage/blocking/simple
 GET http://localhost:8080/beverage/blocking/multiple
 
 ### GET Reactive Single
-GET http://localhost:8080/beverage/reactive/single
+GET http://localhost:8080/beverage/reactive/simple
 
 ### GET Reactive Multiple
 GET http://localhost:8080/beverage/reactive/multiple
 
 ### GET Virtual Single
-GET http://localhost:8080/beverage/virtual/single
+GET http://localhost:8080/beverage/virtual/simple
 
 ### GET Virtual Multiple
 GET http://localhost:8080/beverage/virtual/multiple

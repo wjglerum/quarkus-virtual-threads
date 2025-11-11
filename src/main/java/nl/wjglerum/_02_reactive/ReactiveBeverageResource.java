@@ -10,8 +10,8 @@ import jakarta.ws.rs.Path;
 
 import java.util.List;
 
-@Path("/beverage/reactive")
 @ApplicationScoped
+@Path("/beverage/reactive")
 public class ReactiveBeverageResource {
 
     @Inject

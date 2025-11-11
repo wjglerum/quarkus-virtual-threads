@@ -12,8 +12,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Path("/beverage/blocking")
 @ApplicationScoped
+@Path("/beverage/blocking")
 public class BlockingBeverageResource {
 
     @Inject

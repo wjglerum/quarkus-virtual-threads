@@ -6,8 +6,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
@@ -23,7 +21,6 @@ public class ReactiveBeverageResource {
 
     @GET
     @WithTransaction
-    @Produces(MediaType.APPLICATION_JSON)
     public Uni<ReactiveBeverage> getBeverage() {
         return bartender.get().onItem().call(beverage -> repository.save(beverage));
     }
@@ -31,7 +28,6 @@ public class ReactiveBeverageResource {
     @GET
     @Path("/sequential")
     @WithTransaction
-    @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<ReactiveBeverage>> getBeverageSequential() {
         return bartender.get().onItem().transformToUni(beverage1 ->
                 bartender.get().onItem().transformToUni(beverage2 ->
@@ -47,7 +43,6 @@ public class ReactiveBeverageResource {
     @GET
     @Path("/parallel")
     @WithTransaction
-    @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<ReactiveBeverage>> getBeveragesParallel() {
         var beverage1 = bartender.get();
         var beverage2 = bartender.get();

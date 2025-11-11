@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -19,6 +20,7 @@ class BlockingBeverageResourceTest {
                 .get()
                 .then()
                 .statusCode(200)
+                .contentType(JSON)
                 .body(containsString("Blocking coffee"));
     }
 
@@ -29,6 +31,7 @@ class BlockingBeverageResourceTest {
                 .get("/sequential")
                 .then()
                 .statusCode(200)
+                .contentType(JSON)
                 .body("size()", is(3))
                 .body(containsString("Blocking coffee"));
     }
@@ -40,6 +43,7 @@ class BlockingBeverageResourceTest {
                 .get("/parallel")
                 .then()
                 .statusCode(200)
+                .contentType(JSON)
                 .body("size()", is(3))
                 .body(containsString("Blocking coffee"));
     }

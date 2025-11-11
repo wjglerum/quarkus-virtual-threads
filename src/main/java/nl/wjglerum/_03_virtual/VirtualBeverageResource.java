@@ -6,8 +6,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class VirtualBeverageResource {
     @Path("/simple")
     @Transactional
     @RunOnVirtualThread
-    @Produces(MediaType.APPLICATION_JSON)
     public VirtualBeverage getBeverage() {
         var beverage =  bartender.get();
         repository.save(beverage);
@@ -36,7 +33,6 @@ public class VirtualBeverageResource {
     @Path("/multiple")
     @Transactional
     @RunOnVirtualThread
-    @Produces(MediaType.APPLICATION_JSON)
     public List<VirtualBeverage> getBeverages() {
         var beverage1 =  bartender.get();
         var beverage2 =  bartender.get();

@@ -5,8 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -25,7 +23,6 @@ public class BlockingBeverageResource {
 
     @GET
     @Transactional
-    @Produces(MediaType.APPLICATION_JSON)
     public BlockingBeverage getBeverage() {
         var beverage = bartender.get();
         repository.save(beverage);
@@ -35,7 +32,6 @@ public class BlockingBeverageResource {
     @GET
     @Path("/sequential")
     @Transactional
-    @Produces(MediaType.APPLICATION_JSON)
     public List<BlockingBeverage> getBeveragesSequential() {
         var beverage1 = bartender.get();
         var beverage2 = bartender.get();
@@ -48,7 +44,6 @@ public class BlockingBeverageResource {
     @GET
     @Path("/parallel")
     @Transactional
-    @Produces(MediaType.APPLICATION_JSON)
     public List<BlockingBeverage> getBeveragesParallel() {
         try (ExecutorService executor = Executors.newWorkStealingPool()) {
             var beverage1 = executor.submit(bartender::get);

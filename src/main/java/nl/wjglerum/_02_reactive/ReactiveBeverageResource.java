@@ -3,15 +3,14 @@ package nl.wjglerum._02_reactive;
 import io.quarkus.hibernate.reactive.panache.common.WithTransaction;
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
 import java.util.List;
 
-@ApplicationScoped
 @Path("/beverage/reactive")
+@WithTransaction
 public class ReactiveBeverageResource {
 
     @Inject
@@ -21,7 +20,6 @@ public class ReactiveBeverageResource {
     ReactiveBeverageRepository repository;
 
     @GET
-    @WithTransaction
     public Uni<ReactiveBeverage> getBeverage() {
         Log.info("Going to get reactive beverage");
         return bartender.get().onItem().call(beverage -> repository.save(beverage));
@@ -29,7 +27,6 @@ public class ReactiveBeverageResource {
 
     @GET
     @Path("/sequential")
-    @WithTransaction
     public Uni<List<ReactiveBeverage>> getBeverageSequential() {
         Log.info("Going to get reactive beverages sequential");
         return bartender.get().onItem().transformToUni(beverage1 ->
@@ -45,7 +42,6 @@ public class ReactiveBeverageResource {
 
     @GET
     @Path("/parallel")
-    @WithTransaction
     public Uni<List<ReactiveBeverage>> getBeveragesParallel() {
         Log.info("Going to get reactive beverages parallel");
         var beverage1 = bartender.get();

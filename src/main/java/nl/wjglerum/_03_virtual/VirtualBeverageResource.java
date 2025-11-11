@@ -2,7 +2,6 @@ package nl.wjglerum._03_virtual;
 
 import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.RunOnVirtualThread;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -12,8 +11,9 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 
-@ApplicationScoped
 @Path("/beverage/virtual")
+@Transactional
+@RunOnVirtualThread
 public class VirtualBeverageResource {
 
     @Inject
@@ -23,8 +23,6 @@ public class VirtualBeverageResource {
     VirtualBeverageRepository repository;
 
     @GET
-    @Transactional
-    @RunOnVirtualThread
     public VirtualBeverage getBeverage() {
         Log.info("Going to get virtual beverage");
         var beverage =  bartender.get();
@@ -34,8 +32,6 @@ public class VirtualBeverageResource {
 
     @GET
     @Path("/sequential")
-    @Transactional
-    @RunOnVirtualThread
     public List<VirtualBeverage> getBeveragesSequential() {
         Log.info("Going to get virtual beverages sequential");
         var beverage1 =  bartender.get();
@@ -48,8 +44,6 @@ public class VirtualBeverageResource {
 
     @GET
     @Path("/parallel")
-    @Transactional
-    @RunOnVirtualThread
     public List<VirtualBeverage> getBeveragesParallel() {
         Log.info("Going to get virtual beverages parallel");
         try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
@@ -66,8 +60,6 @@ public class VirtualBeverageResource {
 
     @GET
     @Path("/custom")
-    @Transactional
-    @RunOnVirtualThread
     public List<VirtualBeverage> getBeveragesCustom() {
         Log.info("Going to get virtual beverages custom");
         var currentThread = Thread.currentThread();

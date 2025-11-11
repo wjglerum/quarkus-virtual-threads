@@ -2,7 +2,6 @@ package nl.wjglerum._04_structured;
 
 import io.quarkus.logging.Log;
 import io.smallrye.common.annotation.RunOnVirtualThread;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -11,8 +10,10 @@ import jakarta.ws.rs.Path;
 import java.util.List;
 import java.util.concurrent.StructuredTaskScope;
 
-@ApplicationScoped
 @Path("/beverage/structured")
+@Transactional
+@RunOnVirtualThread
+@SuppressWarnings("preview")
 public class StructuredBeverageResource {
 
     @Inject
@@ -23,9 +24,6 @@ public class StructuredBeverageResource {
 
     @GET
     @Path("/simple")
-    @Transactional
-    @RunOnVirtualThread
-    @SuppressWarnings("preview")
     public List<StructuredBeverage> getBeveragesSimple() throws InterruptedException {
         Log.info("Going to get structured beverages simple");
         try (var scope = StructuredTaskScope.open()) {
@@ -41,9 +39,6 @@ public class StructuredBeverageResource {
 
     @GET
     @Path("/custom")
-    @Transactional
-    @RunOnVirtualThread
-    @SuppressWarnings("preview")
     public List<StructuredBeverage> getBeveragesCustom() throws InterruptedException {
         Log.info("Going to get structured beverages custom");
         var joiner = StructuredTaskScope.Joiner.<StructuredBeverage>allSuccessfulOrThrow();

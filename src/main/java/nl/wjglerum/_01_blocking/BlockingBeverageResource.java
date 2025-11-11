@@ -1,7 +1,6 @@
 package nl.wjglerum._01_blocking;
 
 import io.quarkus.logging.Log;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -12,8 +11,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@ApplicationScoped
 @Path("/beverage/blocking")
+@Transactional
 public class BlockingBeverageResource {
 
     @Inject
@@ -23,7 +22,6 @@ public class BlockingBeverageResource {
     BlockingBeverageRepository repository;
 
     @GET
-    @Transactional
     public BlockingBeverage getBeverage() {
         Log.info("Going to get blocking beverage");
         var beverage = bartender.get();
@@ -33,7 +31,6 @@ public class BlockingBeverageResource {
 
     @GET
     @Path("/sequential")
-    @Transactional
     public List<BlockingBeverage> getBeveragesSequential() {
         Log.info("Going to get blocking beverages sequential");
         var beverage1 = bartender.get();
@@ -46,7 +43,6 @@ public class BlockingBeverageResource {
 
     @GET
     @Path("/parallel")
-    @Transactional
     public List<BlockingBeverage> getBeveragesParallel() {
         Log.info("Going to get blocking beverages parallel");
         try (ExecutorService executor = Executors.newWorkStealingPool()) {

@@ -19,7 +19,7 @@ class BlockingBeverageResourceTest {
                 .get("/simple")
                 .then()
                 .statusCode(200)
-                .body(containsString("Blocking Guinness"));
+                .body(containsString("Blocking coffee"));
     }
 
     @Test
@@ -30,6 +30,6 @@ class BlockingBeverageResourceTest {
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))
-                .body(containsString("Blocking Guinness"));
+                .body(containsString("Blocking coffee"));
     }
 }

@@ -19,7 +19,7 @@ class ReactiveBeverageResourceTest {
                 .get("/simple")
                 .then()
                 .statusCode(200)
-                .body(containsString("Reactive Guinness"));
+                .body(containsString("Reactive coffee"));
     }
 
     @Test
@@ -30,6 +30,6 @@ class ReactiveBeverageResourceTest {
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))
-                .body(containsString("Reactive Guinness"));
+                .body(containsString("Reactive coffee"));
     }
 }

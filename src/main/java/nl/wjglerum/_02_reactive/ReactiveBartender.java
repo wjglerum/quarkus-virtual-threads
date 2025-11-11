@@ -11,10 +11,10 @@ import java.time.Duration;
 @ApplicationScoped
 public class ReactiveBartender {
 
-    public Uni<ReactiveBeverage> getFromDraft() {
-        Log.info("Going to pour a reactive Guinness");
+    public Uni<ReactiveBeverage> get() {
+        Log.info("Warming up the reactive coffee machine");
         return Uni.createFrom()
-                .item(new ReactiveBeverage("Reactive Guinness"))
+                .item(new ReactiveBeverage("Reactive coffee"))
                 .onItem().delayIt()
                 .onExecutor(ContextAwareScheduler.delegatingTo(Infrastructure.getDefaultWorkerPool()).withCurrentContext())
                 .by(Duration.ofSeconds(3));

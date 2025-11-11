@@ -26,7 +26,7 @@ class StructuredBeverageResourceTest {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("size()", equalTo(3))
-                .body(containsString("Structured Guinness"));
+                .body(containsString("Structured coffee"));
     }
 
     @Test
@@ -40,6 +40,6 @@ class StructuredBeverageResourceTest {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("size()", equalTo(3))
-                .body(containsString("Structured Guinness"));
+                .body(containsString("Structured coffee"));
     }
 }

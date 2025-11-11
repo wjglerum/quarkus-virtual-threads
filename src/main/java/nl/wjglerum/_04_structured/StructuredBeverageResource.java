@@ -30,9 +30,9 @@ public class StructuredBeverageResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<StructuredBeverage> getBeveragesSimple() throws InterruptedException {
         try (var scope = StructuredTaskScope.open()) {
-            var alice = scope.fork(() -> bartender.getFromDraft("Alice"));
-            var bob = scope.fork(() -> bartender.getFromDraft("Bob"));
-            var chuck = scope.fork(() -> bartender.getFromDraft("Chuck"));
+            var alice = scope.fork(() -> bartender.get("Alice"));
+            var bob = scope.fork(() -> bartender.get("Bob"));
+            var chuck = scope.fork(() -> bartender.get("Chuck"));
             scope.join();
             var beverages = List.of(alice.get(), bob.get(), chuck.get());
             repository.save(beverages);
@@ -52,7 +52,7 @@ public class StructuredBeverageResource {
         var friends = List.of("Alice", "Bob", "Chuck");
 
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(tf))) {
-            friends.forEach(name -> scope.fork(() -> bartender.getFromDraft(name)));
+            friends.forEach(name -> scope.fork(() -> bartender.get(name)));
             var beverages = scope.join().map(StructuredTaskScope.Subtask::get).toList();
             repository.save(beverages);
             return beverages;

@@ -6,13 +6,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class VirtualBartender {
 
-    public VirtualBeverage getFromDraft() {
-        Log.info("Going to pour a virtual Guinness");
+    public VirtualBeverage get() {
+        Log.info("Warming up the virtual coffee machine");
         try {
             Thread.sleep(3_000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return new VirtualBeverage("Virtual Guinness");
+        return new VirtualBeverage("Virtual coffee");
     }
 }

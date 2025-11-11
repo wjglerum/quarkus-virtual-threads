@@ -27,7 +27,7 @@ public class VirtualBeverageResource {
     @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
     public VirtualBeverage getBeverage() {
-        var beverage =  bartender.getFromDraft();
+        var beverage =  bartender.get();
         repository.save(beverage);
         return beverage;
     }
@@ -38,9 +38,9 @@ public class VirtualBeverageResource {
     @RunOnVirtualThread
     @Produces(MediaType.APPLICATION_JSON)
     public List<VirtualBeverage> getBeverages() {
-        var beverage1 =  bartender.getFromDraft();
-        var beverage2 =  bartender.getFromDraft();
-        var beverage3 =  bartender.getFromDraft();
+        var beverage1 =  bartender.get();
+        var beverage2 =  bartender.get();
+        var beverage3 =  bartender.get();
         var beverages = List.of(beverage1, beverage2, beverage3);
         repository.save(beverages);
         return beverages;

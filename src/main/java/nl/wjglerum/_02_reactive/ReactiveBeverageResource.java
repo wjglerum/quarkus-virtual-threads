@@ -26,7 +26,7 @@ public class ReactiveBeverageResource {
     @WithTransaction
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<ReactiveBeverage> getBeverage() {
-        return bartender.getFromDraft().onItem().call(beverage -> repository.save(beverage));
+        return bartender.get().onItem().call(beverage -> repository.save(beverage));
     }
 
     @GET
@@ -34,9 +34,9 @@ public class ReactiveBeverageResource {
     @WithTransaction
     @Produces(MediaType.APPLICATION_JSON)
     public Uni<List<ReactiveBeverage>> getBeverages() {
-        var beverage1 = bartender.getFromDraft();
-        var beverage2 = bartender.getFromDraft();
-        var beverage3 = bartender.getFromDraft();
+        var beverage1 = bartender.get();
+        var beverage2 = bartender.get();
+        var beverage3 = bartender.get();
         return Uni.join().all(beverage1, beverage2, beverage3).andCollectFailures()
                 .onItem().call(beverages -> repository.save(beverages));
     }

@@ -19,7 +19,7 @@ class VirtualBeverageResourceTest {
                 .get("/simple")
                 .then()
                 .statusCode(200)
-                .body(containsString("Virtual Guinness"));
+                .body(containsString("Virtual coffee"));
     }
 
     @Test
@@ -30,6 +30,6 @@ class VirtualBeverageResourceTest {
                 .then()
                 .statusCode(200)
                 .body("size()", is(3))
-                .body(containsString("Virtual Guinness"));
+                .body(containsString("Virtual coffee"));
     }
 }

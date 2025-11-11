@@ -18,7 +18,7 @@ class VirtualBeverageResourceTest {
     void testVirtualSimpleEndpoint() {
         given()
                 .when()
-                .get("/simple")
+                .get()
                 .then()
                 .statusCode(200)
                 .contentType(ContentType.JSON)
@@ -26,10 +26,22 @@ class VirtualBeverageResourceTest {
     }
 
     @Test
-    void testVirtualMultipleEndpoint() {
+    void testVirtualSequenetialEndpoint() {
         given()
                 .when()
-                .get("/multiple")
+                .get("/sequential")
+                .then()
+                .statusCode(200)
+                .contentType(JSON)
+                .body("size()", is(3))
+                .body(containsString("Virtual coffee"));
+    }
+
+    @Test
+    void testVirtualParallelEndpoint() {
+        given()
+                .when()
+                .get("/parallel")
                 .then()
                 .statusCode(200)
                 .contentType(JSON)

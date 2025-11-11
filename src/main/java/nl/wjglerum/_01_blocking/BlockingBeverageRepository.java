@@ -10,12 +10,12 @@ import java.util.List;
 public class BlockingBeverageRepository implements PanacheRepository<BlockingBeverage> {
 
     void save(BlockingBeverage beverage) {
-        Log.info("Persisting blocking beverage " + beverage);
+        Log.info("Persisting blocking beverage");
         persist(beverage);
     }
 
     void save(List<BlockingBeverage> beverages) {
-        Log.info("Persisting blocking beverages " + beverages);
+        Log.info("Persisting blocking beverages");
         persist(beverages);
     }
 }

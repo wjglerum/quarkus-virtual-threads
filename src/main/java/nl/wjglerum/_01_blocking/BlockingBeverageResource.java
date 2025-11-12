@@ -45,7 +45,7 @@ public class BlockingBeverageResource {
     @Path("/parallel")
     public List<BlockingBeverage> getBeveragesParallel() {
         Log.info("Going to get blocking beverages parallel");
-        try (ExecutorService executor = Executors.newWorkStealingPool()) {
+        try (ExecutorService executor = Executors.newFixedThreadPool(3)) {
             var beverage1 = executor.submit(bartender::get);
             var beverage2 = executor.submit(bartender::get);
             var beverage3 = executor.submit(bartender::get);

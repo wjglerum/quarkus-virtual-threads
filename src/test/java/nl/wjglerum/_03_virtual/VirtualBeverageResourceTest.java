@@ -19,6 +19,7 @@ import static org.hamcrest.CoreMatchers.is;
 class VirtualBeverageResourceTest {
 
     @Test
+    @ShouldNotPin(atMost = 1)
     void testVirtualSimpleEndpoint() {
         given()
                 .when()

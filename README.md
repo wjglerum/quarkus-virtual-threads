@@ -14,7 +14,7 @@ If you want to learn more about Quarkus, please visit its website: <https://quar
 
 ## Requirements
 
-- JDK 25
+- JDK 26 early access
 - Docker or Podman running
 
 ## Running the application in dev mode

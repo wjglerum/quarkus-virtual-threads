@@ -8,15 +8,19 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class ReactiveBeverageRepository implements PanacheRepository<ReactiveBeverage> {
+public class ReactiveBeverageRepository implements PanacheRepository<ReactiveBeverageEntity> {
 
     Uni<Void> save(ReactiveBeverage beverage) {
         Log.info("Persisting reactive beverage");
-        return persist(beverage).replaceWithVoid();
+        var entity = new ReactiveBeverageEntity(beverage.name());
+        return persist(entity).replaceWithVoid();
     }
 
     Uni<Void> save(List<ReactiveBeverage> beverages) {
         Log.info("Persisting reactive beverages");
-        return persist(beverages);
+        var entities = beverages.stream()
+                .map(beverage -> new ReactiveBeverageEntity(beverage.name()))
+                .toList();
+        return persist(entities);
     }
 }

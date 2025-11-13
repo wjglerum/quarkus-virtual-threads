@@ -7,10 +7,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class StructuredBeverageRepository implements PanacheRepository<StructuredBeverage> {
+public class StructuredBeverageRepository implements PanacheRepository<StructuredBeverageEntity> {
 
     void save(List<StructuredBeverage> beverages) {
         Log.info("Persisting structured beverages");
-        persist(beverages);
+        var entities = beverages.stream()
+                .map(beverage -> new StructuredBeverageEntity(beverage.name()))
+                .toList();
+        persist(entities);
     }
 }

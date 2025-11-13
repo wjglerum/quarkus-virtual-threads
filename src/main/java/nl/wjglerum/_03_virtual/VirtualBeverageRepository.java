@@ -7,15 +7,19 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class VirtualBeverageRepository implements PanacheRepository<VirtualBeverage> {
+public class VirtualBeverageRepository implements PanacheRepository<VirtualBeverageEntity> {
 
     void save(VirtualBeverage beverage) {
         Log.info("Persisting virtual beverage");
-        this.persist(beverage);
+        var entity = new VirtualBeverageEntity(beverage.name());
+        this.persist(entity);
     }
 
     void save(List<VirtualBeverage> beverages) {
         Log.info("Persisting virtual beverages");
-        this.persist(beverages);
+        var entities = beverages.stream()
+                .map(beverage -> new VirtualBeverageEntity(beverage.name()))
+                .toList();
+        this.persist(entities);
     }
 }

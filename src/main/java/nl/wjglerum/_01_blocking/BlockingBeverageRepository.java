@@ -7,15 +7,19 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 
 @ApplicationScoped
-public class BlockingBeverageRepository implements PanacheRepository<BlockingBeverage> {
+public class BlockingBeverageRepository implements PanacheRepository<BlockingBeverageEntity> {
 
     void save(BlockingBeverage beverage) {
         Log.info("Persisting blocking beverage");
-        persist(beverage);
+        var entity = new BlockingBeverageEntity(beverage.name());
+        persist(entity);
     }
 
     void save(List<BlockingBeverage> beverages) {
         Log.info("Persisting blocking beverages");
-        persist(beverages);
+        var entities = beverages.stream()
+                .map(beverage -> new BlockingBeverageEntity(beverage.name()))
+                .toList();
+        persist(entities);
     }
 }

@@ -42,10 +42,8 @@ public class StructuredBeverageResource {
     public List<StructuredBeverage> getBeveragesCustom() throws InterruptedException {
         Log.info("Going to get structured beverages custom");
         var joiner = StructuredTaskScope.Joiner.<StructuredBeverage>allSuccessfulOrThrow();
-        var currentThread = Thread.currentThread();
-        var threadFactory = Thread.ofVirtual()
-                .name(currentThread.getName() + "-beverage-", 0)
-                .factory();
+        var currentThread = Thread.currentThread().getName();
+        var threadFactory = Thread.ofVirtual().name(currentThread + "-structured-beverage-", 0).factory();
         try (var scope = StructuredTaskScope.open(joiner, cf -> cf.withThreadFactory(threadFactory))) {
             scope.fork(bartender::get);
             scope.fork(bartender::get);

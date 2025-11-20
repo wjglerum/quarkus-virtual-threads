@@ -62,10 +62,8 @@ public class VirtualBeverageResource {
     @Path("/custom")
     public List<VirtualBeverage> getBeveragesCustom() {
         Log.info("Going to get virtual beverages custom");
-        var currentThread = Thread.currentThread();
-        var threadFactory = Thread.ofVirtual()
-                .name(currentThread.getName() + "-virtual-beverage-", 0)
-                .factory();
+        var currentThread = Thread.currentThread().getName();
+        var threadFactory = Thread.ofVirtual().name(currentThread + "-virtual-beverage-", 0).factory();
         try(var executor = Executors.newThreadPerTaskExecutor(threadFactory)) {
             var beverage1 = executor.submit(bartender::get);
             var beverage2 = executor.submit(bartender::get);

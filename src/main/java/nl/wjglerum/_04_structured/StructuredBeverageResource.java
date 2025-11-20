@@ -50,7 +50,7 @@ public class StructuredBeverageResource {
             scope.fork(bartender::get);
             scope.fork(bartender::get);
             scope.fork(bartender::get);
-            var beverages = scope.join().map(StructuredTaskScope.Subtask::get).toList();
+            var beverages = scope.join();
             repository.save(beverages);
             return beverages;
         }

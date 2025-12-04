@@ -1,6 +1,7 @@
 package nl.wjglerum._03_virtual;
 
 import io.quarkus.logging.Log;
+import io.quarkus.virtual.threads.VirtualThreads;
 import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -9,6 +10,7 @@ import jakarta.ws.rs.Path;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Path("/beverage/virtual")
@@ -21,6 +23,10 @@ public class VirtualBeverageResource {
 
     @Inject
     VirtualBeverageRepository repository;
+
+    @Inject
+    @VirtualThreads
+    ExecutorService executor;
 
     @GET
     public VirtualBeverage getBeverage() {
@@ -46,7 +52,7 @@ public class VirtualBeverageResource {
     @Path("/parallel")
     public List<VirtualBeverage> getBeveragesParallel() {
         Log.info("Going to get virtual beverages parallel");
-        try(var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        try {
             var beverage1 = executor.submit(bartender::get);
             var beverage2 = executor.submit(bartender::get);
             var beverage3 = executor.submit(bartender::get);

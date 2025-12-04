@@ -5,11 +5,10 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import org.eclipse.microprofile.context.ManagedExecutor;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Path("/beverage/blocking")
 @Transactional
@@ -20,6 +19,9 @@ public class BlockingBeverageResource {
 
     @Inject
     BlockingBeverageRepository repository;
+
+    @Inject
+    ManagedExecutor executor;
 
     @GET
     public BlockingBeverage getBeverage() {
@@ -45,7 +47,7 @@ public class BlockingBeverageResource {
     @Path("/parallel")
     public List<BlockingBeverage> getBeveragesParallel() {
         Log.info("Going to get blocking beverages parallel");
-        try (ExecutorService executor = Executors.newFixedThreadPool(3)) {
+        try {
             var beverage1 = executor.submit(bartender::get);
             var beverage2 = executor.submit(bartender::get);
             var beverage3 = executor.submit(bartender::get);

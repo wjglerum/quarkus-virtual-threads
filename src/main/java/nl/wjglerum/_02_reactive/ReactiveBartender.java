@@ -2,8 +2,6 @@ package nl.wjglerum._02_reactive;
 
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
-import io.smallrye.mutiny.infrastructure.Infrastructure;
-import io.smallrye.mutiny.vertx.core.ContextAwareScheduler;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.time.Duration;
@@ -15,8 +13,6 @@ public class ReactiveBartender {
         Log.info("Warming up the reactive coffee machine");
         return Uni.createFrom()
                 .item(new ReactiveBeverage("Reactive coffee"))
-                .onItem().delayIt()
-                .onExecutor(ContextAwareScheduler.delegatingTo(Infrastructure.getDefaultWorkerPool()).withCurrentContext())
-                .by(Duration.ofSeconds(3));
+                .onItem().delayIt().by(Duration.ofSeconds(3));
     }
 }

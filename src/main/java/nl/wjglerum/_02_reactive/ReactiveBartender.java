@@ -1,18 +1,22 @@
 package nl.wjglerum._02_reactive;
 
-import io.quarkus.logging.Log;
-import io.smallrye.mutiny.Uni;
+import java.time.Duration;
+
 import jakarta.enterprise.context.ApplicationScoped;
 
-import java.time.Duration;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import io.quarkus.logging.Log;
+import io.smallrye.mutiny.Uni;
 
 @ApplicationScoped
 public class ReactiveBartender {
 
+    @ConfigProperty(name = "bartender.delay")
+    Duration delay;
+
     public Uni<ReactiveBeverage> get() {
         Log.info("Warming up the reactive coffee machine");
-        return Uni.createFrom()
-                .item(new ReactiveBeverage("Reactive coffee"))
-                .onItem().delayIt().by(Duration.ofSeconds(3));
+        return Uni.createFrom().item(new ReactiveBeverage("Reactive coffee")).onItem().delayIt().by(delay);
     }
 }

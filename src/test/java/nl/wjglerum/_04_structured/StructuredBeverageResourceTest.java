@@ -2,8 +2,8 @@ package nl.wjglerum._04_structured;
 
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit5.virtual.ShouldNotPin;
-import io.quarkus.test.junit5.virtual.VirtualThreadUnit;
+import io.quarkus.test.junit.virtual.ShouldNotPin;
+import io.quarkus.test.junit.virtual.VirtualThreadUnit;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;

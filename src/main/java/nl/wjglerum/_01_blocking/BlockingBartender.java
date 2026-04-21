@@ -17,7 +17,7 @@ public class BlockingBartender {
     public BlockingBeverage get() {
         Log.info("Warming up the blocking coffee machine");
         try {
-            Thread.sleep(delay.toMillis());
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
